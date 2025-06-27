@@ -5,6 +5,10 @@ import os
 
 pygame.init()
 
+# Add this near the top of your file
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ASSETS_DIR = os.path.join(BASE_DIR, 'assets')
+
 try:
     pygame.mixer.init()
 except pygame.error as e:
@@ -23,14 +27,14 @@ pygame.display.set_caption("Email Verification Game")
 font = pygame.font.Font(None, 28)
 
 try:
-    correct_sound = pygame.mixer.Sound("correct.wav")
-    incorrect_sound = pygame.mixer.Sound("incorrect.wav")
+    correct_sound = pygame.mixer.Sound(os.path.join(ASSETS_DIR, 'correct.wav'))
+    incorrect_sound = pygame.mixer.Sound(os.path.join(ASSETS_DIR, 'incorrect.wav'))
     print("Sound effects loaded successfully.")
 except pygame.error as e:
     print(f"Error loading sound files: {e}")
     correct_sound = incorrect_sound = None
 try:
-    pygame.mixer.music.load("background_music.mp3")
+    pygame.mixer.music.load(os.path.join(ASSETS_DIR, 'background_music.mp3'))
     pygame.mixer.music.set_volume(0.5)
     pygame.mixer.music.play(-1)
     print("Background music started successfully.")
